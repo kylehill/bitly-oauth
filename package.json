@@ -1,0 +1,26 @@
+{
+  "name": "bitly-oauth",
+  "version": "0.0.1",
+  "description": "A node wrapper for bit.ly API with the OAuth-required methods",
+  "homepage": "http://github.com/kylehill/bitly-oauth.git",
+  "contributors": [
+    {
+      "name": "Kyle Hill",
+      "email": "kylehill@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/kylehill/bitly-oauth.git"
+  },
+  "keywords": [
+    "url",
+    "bitly",
+    "click tracking",
+    "bit.ly"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6"
+  }
+}
