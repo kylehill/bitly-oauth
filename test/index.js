@@ -145,6 +145,67 @@ describe("Method testing:", function(){
       });
     });
     
+    it("includes clicks", function(done){
+      b.link.clicks({ link: "http://bit.ly/Z5Z5fO" }, function(err, response){
+        assert.ok(response.status_txt);
+        assert.ok(response.data.hasOwnProperty("link_clicks"));
+        done()
+      });
+    });
+    
+    it("includes countries", function(done){
+      b.link.countries({ link: "http://bit.ly/Z5Z5fO" }, function(err, response){
+        assert.ok(response.status_txt);
+        assert.ok(response.data.hasOwnProperty("countries"));
+        done()
+      });
+    });
+    
+    it("includes encoders", function(done){
+      b.link.encoders({ link: "http://bit.ly/Z5Z5fO" }, function(err, response){
+        assert.ok(response.status_txt);
+        done()
+      });
+    });
+    
+    it("includes encoders_count", function(done){
+      b.link.encoders_count({ link: "http://bit.ly/Z5Z5fO" }, function(err, response){
+        assert.ok(response.status_txt);
+        done()
+      });
+    });
+    
+    it("includes referrers", function(done){
+      b.link.referrers({ link: "http://bit.ly/Z5Z5fO" }, function(err, response){
+        assert.ok(response.status_txt);
+        assert.ok(response.data.hasOwnProperty("referrers"));
+        done()
+      });
+    });
+    
+    it("includes referrers_by_domain", function(done){
+      b.link.referrers_by_domain({ link: "http://bit.ly/Z5Z5fO" }, function(err, response){
+        assert.ok(response.status_txt);
+        assert.ok(response.data.hasOwnProperty("referrers"));
+        done()
+      });
+    });
+    
+    it("includes referring_domains", function(done){
+      b.link.referring_domains({ link: "http://bit.ly/Z5Z5fO" }, function(err, response){
+        assert.ok(response.status_txt);
+        assert.ok(response.data.hasOwnProperty("referring_domains"));
+        done()
+      });
+    });
+    
+    it("includes shares", function(done){
+      b.link.shares({ link: "http://bit.ly/Z5Z5fO" }, function(err, response){
+        assert.ok(response.status_txt);
+        done()
+      });
+    });
+    
   });
   
   describe("User", function(){
