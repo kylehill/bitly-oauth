@@ -9,7 +9,7 @@ Install it:
 
 Use it:
 
-    '''javascript
+    ```javascript
     var Bitly = require("bitly-oauth");
     var b = new Bitly("username", "password");
     
@@ -29,6 +29,6 @@ Use it:
     b.expand({ shortUrl: "http://bit.ly/Vnr22W" }, function(err, result){
       // do moar stuff
     });
-    '''
+    ```
     
 The query parameters are listed in the individual method signatures in the [bitly documentation](http://dev.bitly.com/api.html). 
