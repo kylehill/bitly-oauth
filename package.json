@@ -1,6 +1,6 @@
 {
   "name": "bitly-oauth",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A node wrapper for bit.ly API with the OAuth-required methods",
   "homepage": "http://github.com/kylehill/bitly-oauth.git",
   "contributors": [
