@@ -65,7 +65,14 @@ module.exports = function(username, password, options) {
 
       res.on("end", function(){
         if (toJSON) {
-          callback(null, JSON.parse(chunks.join("")));
+          var outbound = {}
+          try {
+            outbound = JSON.parse(chunks.join(""));
+            callback(null, outbound);
+          }
+          catch (e) {
+            callback(e, (chunks.join("")));
+          }
         }
         else {
           callback(null, (chunks.join("")));
