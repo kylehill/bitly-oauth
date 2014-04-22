@@ -1,20 +1,21 @@
 var querystring = require("querystring")
-  , https = require("https");
+  , https = require("https")
+  , request = require("request");
   
 module.exports = function(username, password, options) {
   if (!options) { options = { } };
 
-  var _credentials = username + ":" + password;
+  var _username = username;
+  var _password = password;
   var _isAuthenticated = false;
   var _accessToken;
   
   var _authenticate = function(callback) {
     var reqOptions = {
-      hostname: "api-ssl.bit.ly",
-      port: 443,
-      path: "/oauth/access_token",
+      uri: "https://api-ssl.bit.ly/oauth/access_token",
       method: "POST",
-      auth: _credentials,
+      json: true,
+      auth: { user: _username, pass: _password },
       headers: {
         "Content-Length": 0 // bitly throws 411 errors if you don't specify this header. You had to look it up
       }
@@ -38,10 +39,8 @@ module.exports = function(username, password, options) {
     if (_isAuthenticated) {
       params.access_token = _accessToken;
       var reqOptions = {
-        hostname: "api-ssl.bit.ly",
-        port: 443,
-        path: "/v3/" + paths.join("/") + "?" + querystring.stringify(params),
-        method: "GET"
+        uri: "https://api-ssl.bit.ly/v3/" + paths.join("/") + "?" + querystring.stringify(params),
+        json: true
       };
       
       _makeRequest(reqOptions, true, callback);
@@ -57,32 +56,11 @@ module.exports = function(username, password, options) {
   
   var _makeRequest = function(reqOptions, toJSON, callback) {
     var chunks = [];
-    var req = https.request(reqOptions, function(res) {
-      res.setEncoding("utf8");
-      res.on("data", function(chunk){
-        chunks.push(chunk);
-      });
-
-      res.on("end", function(){
-        if (toJSON) {
-          var outbound = {}
-          try {
-            outbound = JSON.parse(chunks.join(""));
-            callback(null, outbound);
-          }
-          catch (e) {
-            callback(e, (chunks.join("")));
-          }
-        }
-        else {
-          callback(null, (chunks.join("")));
-        }
-      });
-    });
-    req.end();
-
-    req.on('error', function(err) {
-      callback(err);
+    request(reqOptions, function(err, response, body) {
+      if (err || response.statusCode !== 200) {
+        callback(err || { statusCode: response.statusCode })
+      }
+      callback(null, body)
     });
   }
   
